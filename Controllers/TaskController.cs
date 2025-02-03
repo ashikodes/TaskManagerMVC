@@ -55,7 +55,6 @@ namespace TaskManagerMVC.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTask(int id, TaskItem task)
         {
-            Console.WriteLine(task);
             if (id != task.Id)
             {
                 return BadRequest();
