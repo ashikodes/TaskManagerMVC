@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TaskManagerMVC.Models;
 
 namespace TaskManagerMVC.Data
 {
@@ -10,6 +11,6 @@ namespace TaskManagerMVC.Data
         {
         }
 
-        public DbSet<TaskItem> TaskItems { get; set; }
+        public DbSet<TaskItem> Tasks { get; set; }
     }
 }
