@@ -21,6 +21,13 @@ namespace TaskManagerMVC.Controllers
             return _context.Tasks.Any(e => e.Id == id);
         }
 
+        // GET all: api/Task
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TaskItem>>> GetTasks()
+        {
+            return await _context.Tasks.ToListAsync();
+        }
+
         // GET: api/Task/:id
         [HttpGet("{id}")]
         public async Task<ActionResult<TaskItem>> GetTask(int id)
@@ -48,6 +55,7 @@ namespace TaskManagerMVC.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTask(int id, TaskItem task)
         {
+            Console.WriteLine(task);
             if (id != task.Id)
             {
                 return BadRequest();
