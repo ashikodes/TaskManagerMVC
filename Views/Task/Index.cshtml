@@ -1,0 +1,18 @@
+@model List<TaskManagerMVC.Models.TaskItem>
+
+<h2>Task List</h2>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Status</th>
+    </tr>
+    @foreach (var task in Model)
+    {
+        <tr>
+            <td>@task.Id</td>
+            <td>@task.Title</td>
+            <td>@(task.IsCompleted ? "✅ Completed" : "❌ Not Completed")</td>
+        </tr>
+    }
+</table>

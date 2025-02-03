@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskManagerMVC.Models;
@@ -10,7 +11,6 @@ namespace TaskManagerMVC.Controllers
     public class TaskController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
         public TaskController(ApplicationDbContext context)
         {
             _context = context;
