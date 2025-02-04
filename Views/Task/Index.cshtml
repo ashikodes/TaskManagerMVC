@@ -1,6 +1,9 @@
 @model List<TaskManagerMVC.Models.TaskItem>
 
-<h2>Task List</h2>
+<div class="d-flex align-items-center">
+<h2 class="me-3">Task List</h2>
+<a href="/task/create">Create Task</a>
+</div>
 <table class="table">
     <tr>
         <th>ID</th>
@@ -11,7 +14,9 @@
     {
         <tr>
             <td>@task.Id</td>
-            <td>@task.Title</td>
+            <td>
+                <a href="/task/@task.Id">@task.Title</a>
+            </td>
             <td>@(task.IsCompleted ? "✅ Completed" : "❌ Not Completed")</td>
         </tr>
     }
