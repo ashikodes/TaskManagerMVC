@@ -79,4 +79,17 @@ public class TaskController : Controller
         }
         return View(task);
     }
+
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var task = await _context.Tasks.FindAsync(id);
+        if (task != null)
+        {
+            _context.Tasks.Remove(task);
+            await _context.SaveChangesAsync();
+        }
+        return RedirectToAction(nameof(Index));
+    }
 }
