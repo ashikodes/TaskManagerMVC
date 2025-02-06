@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using TaskManagerMVC.Models;
 using TaskManagerMVC.Data;
+using System.Security.Claims;
 
 [Authorize]
 public class TaskController : Controller
@@ -15,9 +16,10 @@ public class TaskController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var tasks = _context.Tasks.ToList();
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var tasks = await _context.Tasks.Where(t => t.UserId == userId).ToListAsync();
         return View(tasks);
     }
 
@@ -29,13 +31,14 @@ public class TaskController : Controller
     }
 
     // GET: Task/:id
+    [HttpGet]
     [Route("task/{id}")]
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null) return NotFound();
-        
-        var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
-        if (task == null) return NotFound();
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
+        if (task == null) return Forbid();
         
         return View(task);
     }
@@ -44,9 +47,9 @@ public class TaskController : Controller
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null) return NotFound();
-        
-        var task = await _context.Tasks.FindAsync(id);
-        if (task == null) return NotFound();
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
+        if (task == null) return Forbid();
         
         return View(task);
     }
@@ -59,6 +62,9 @@ public class TaskController : Controller
     {
         if (ModelState.IsValid)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            task.UserId = userId;
+
             _context.Add(task);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -71,10 +77,12 @@ public class TaskController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,IsCompleted")] TaskItem task)
     {
-        if (id != task.Id) return NotFound();
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (id != task.Id && userId != task.UserId) return NotFound();
 
         if (ModelState.IsValid)
         {
+            task.UserId = userId;
             _context.Update(task);
             await _context.SaveChangesAsync();
             return RedirectToAction("Details", new { id = task.Id });
@@ -86,7 +94,8 @@ public class TaskController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var task = await _context.Tasks.FindAsync(id);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
         if (task != null)
         {
             _context.Tasks.Remove(task);
