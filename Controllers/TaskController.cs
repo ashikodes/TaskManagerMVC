@@ -1,9 +1,11 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using TaskManagerMVC.Models;
 using TaskManagerMVC.Data;
 
+[Authorize]
 public class TaskController : Controller
 {
     private readonly ApplicationDbContext _context;

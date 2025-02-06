@@ -1,4 +1,6 @@
 using System;
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskManagerMVC.Models
 {
@@ -10,5 +12,8 @@ namespace TaskManagerMVC.Models
         public string Description { get; set; } = string.Empty;
         public bool IsCompleted { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public string? UserId { get; set; }
+        [ForeignKey("UserId")]
+        public ApplicationUser? User { get; set; }
     }
 }
