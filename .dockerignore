@@ -1,0 +1,7 @@
+bin/
+obj/
+node_modules/
+*.md
+.env
+appsettings.Development.json
+appsettings.json
