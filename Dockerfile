@@ -5,7 +5,12 @@ WORKDIR /app
 # Use .NET SDK for building the app
 COPY . ./
 RUN dotnet restore
-RUN dotnet publish -o publish
+
+# Install EF CLI inside the container
+RUN dotnet tool install --global dotnet-ef
+
+# Publish the app
+RUN dotnet publish -c Release -o publish
 
 
 # Final runtime image
