@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/onyeabor/source/TaskManagerMVC/TaskManagerMVC.csproj": {}
+    "/app/TaskManagerMVC.csproj": {}
   },
   "projects": {
-    "/home/onyeabor/source/TaskManagerMVC/TaskManagerMVC.csproj": {
+    "/app/TaskManagerMVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/onyeabor/source/TaskManagerMVC/TaskManagerMVC.csproj",
+        "projectUniqueName": "/app/TaskManagerMVC.csproj",
         "projectName": "TaskManagerMVC",
-        "projectPath": "/home/onyeabor/source/TaskManagerMVC/TaskManagerMVC.csproj",
-        "packagesPath": "/home/onyeabor/.nuget/packages/",
-        "outputPath": "/home/onyeabor/source/TaskManagerMVC/obj/",
+        "projectPath": "/app/TaskManagerMVC.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/app/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/onyeabor/.nuget/NuGet/NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -95,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.405/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.406/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
